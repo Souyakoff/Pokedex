@@ -9,6 +9,7 @@ WORKDIR /BACKEND
 
 # Installer les dépendances globales si nécessaire
 RUN npm install -g nodemon
+RUN npm install express
 
 # Copier le reste des fichiers de l'application
 COPY /BACKEND/ .
