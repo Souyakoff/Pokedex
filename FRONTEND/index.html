@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex - Votre Collection Pokémon</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Pokedex</h1>
+        <div class="search-container">
+            <select id="search-type">
+                <option value="name">Nom</option>
+                <option value="id">ID</option>
+                <option value="type">Type</option>
+                <option value="hp">HP</option>
+                <option value="attack">Attaque</option>
+                <option value="defense">Défense</option>
+                <option value="spattack">Attaque Spéciale</option>
+                <option value="speed">Vitesse</option>
+            </select>
+            <input type="text" id="search-bar" placeholder="Entrez votre recherche...">
+            <button id="search-button">Rechercher</button>
+            <button id="random-button">Pokémon Hasard</button>
+        </div>
+    </header>
+    <main id="pokemon-container">
+        <!-- Les cartes Pokémon s'afficheront ici -->
+    </main>
+    <footer>
+        <p>&copy; 2023 Pokedex. Tous droits réservés.</p>
+    </footer>
+    <script src="assets/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+services:
+  pokedex-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    ports:
+      - "5001:5001"
+
+  pokedex-frontend:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./FRONTEND:/usr/share/nginx/html
+      
