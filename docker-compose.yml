@@ -7,7 +7,7 @@ services:
       - ./BACKEND:/BACKEND
       - /BACKEND/node_modules
     ports:
-      - "5001:5001"
+      - "5003:5003"
 
   pokedex-frontend:
     image: nginx:latest
