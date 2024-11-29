@@ -1,21 +1,28 @@
-# Utiliser une image Node.js officielle comme base
-FROM node:18-alpine
+#Image utilisée
+FROM node:18
 
-# Définir le répertoire de travail dans le conteneur
+#Création du dossier de travail
+RUN mkdir -p /BACKEND/node_modules && chown -R node:node /BACKEND
 WORKDIR /BACKEND
 
-# Copier les fichiers package.json et package-lock.json
-#COPY /app/BACKEND/package*.json ./
-
-# Installer les dépendances globales si nécessaire
+#Installation de nodemon globalement
 RUN npm install -g nodemon
 RUN npm install express
 
-# Copier le reste des fichiers de l'application
-COPY /BACKEND/ .
+#Copie des fichiers nécessaires
+COPY ./BACKEND/package.json /BACKEND/package.json
 
-# Exposer le port sur lequel l'application va tourner
+#Installation des dépendances
+RUN npm install 
+
+#Copie du reste de l'application
+COPY ./BACKEND /BACKEND
+
+#Attribution des permissions à l'utilisateur 'node'
+USER node
+
+#Porte d'écoute
 EXPOSE 5003
 
-# La commande CMD est surChargée par le docker-compose
+#Commande de démarrage
 CMD ["nodemon", "index.js"]
