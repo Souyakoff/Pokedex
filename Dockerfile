@@ -3,7 +3,7 @@ FROM node:18
 
 # Création du dossier de travail
 RUN mkdir -p /BACKEND/node_modules && chown -R node:node /BACKEND
-WORKDIR /app
+WORKDIR /BACKEND
 
 # Installation de nodemon globalement
 RUN npm install -g nodemon
