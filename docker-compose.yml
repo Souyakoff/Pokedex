@@ -4,8 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./app:/app
-      - /app/node_modules
+      - ./BACKEND:/BACKEND
+      - /BACKEND/node_modules
     ports:
       - "5001:5001"
 
