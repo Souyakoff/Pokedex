@@ -1,34 +1,17 @@
-version: '3.8'
-
-# Liste des différents services
 services:
-  ################################################################################################
-  # Service qui va contenir l'application Node.js
   pokedex-backend:
-    # Ce service va utiliser l'image Docker créée à partir du Dockerfile
     build:
       context: .
       dockerfile: Dockerfile
-    # On expose le port 5001 du conteneur vers le port 5001 de la machine hôte
-    ports:
-      - "5002:5002"
-    # Volumes pour monter les fichiers de l'application Node.js (placés dans le dossier BACKEND)
     volumes:
       - ./BACKEND:/BACKEND
-      # On monte le dossier node_modules pour éviter de réinstaller les dépendances à chaque redémarrage du conteneur
-      # - /app/node_modules
-    environment:
-      - NODE_ENV=development
-    # Commande exécutée au démarrage du service
-    command: sh -c "npm install && nodemon /BACKEND/index.js"
-    ################################################################################################
+      - /BACKEND/node_modules
+    ports:
+      - "5001:5001"
 
-    ################################################################################################
-    # Service qui va contenir l'application FRONTEND
-  # pokedex-frontend:
-  #   image: nginx:latest
-  #   ports:
-  #     - "80:80"
-    #volumes:
-      # On monte le dossier FRONTEND dans le dossier racine de Nginx
-      #- ./FRONTEND:/usr/share/nginx/html
+  pokedex-frontend:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./FRONTEND:/usr/share/nginx/html
