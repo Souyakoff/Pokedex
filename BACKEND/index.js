@@ -12,7 +12,7 @@ const IMAGES_SRC = "./FILES/images";
 const TYPES_SRC = "./DATA/types.json";
 
 // Définir un port
-const PORT = 5001;
+const PORT = 5003;
 // ************************************************
 // Lancer un serveur express sur un port défini
 const fs = require('fs');
