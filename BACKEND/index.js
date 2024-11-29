@@ -28,7 +28,6 @@ function formatId(id) {
     return id.toString().padStart(3, '0');
 }
 
-
 function findAllPokemon(request, response) {
     
     //lis les données du fichier pokedex.JSON
@@ -157,7 +156,7 @@ app.get('/pokemon/type/:language/:type', PokemonByType);
 
 function PokemonByHP(request, response) {
     // Récupère les points de vie minimum depuis les paramètres de l'URL
-    let minHP = parseInt(request.params.base.HP);
+    let minHP = parseInt(request.params.hp);
 
     if (isNaN(minHP) || minHP < 0) {
         return response.status(400).send({ error: "Le paramètre HP doit être un nombre valide supérieur ou égal à 0." });
@@ -182,7 +181,7 @@ function PokemonByHP(request, response) {
 app.get('/pokemon/hp/:hp', PokemonByHP);
 
 function PokemonByAttack(request, response) {
-    let minAttack = parseInt(request.params.base.Attack);
+    let minAttack = parseInt(request.params.Attack);
 
     if (isNaN(minAttack) || minAttack < 0) {
         return response.status(400).send({ error: "Le paramètre Attack doit être un nombre valide supérieur ou égal à 0." });
@@ -199,7 +198,6 @@ function PokemonByAttack(request, response) {
         response.status(404).send({ error: `Aucun Pokémon trouvé avec Attack >= ${minAttack}.` });
     }
 }
-
 
 // Route pour obtenir les Pokémon par attaque
 app.get('/pokemon/attack/:attack', PokemonByAttack);
@@ -225,6 +223,7 @@ function PokemonByDefense(request, response) {
 
 // Route pour obtenir les Pokémon par défense
 app.get('/pokemon/defense/:defense', PokemonByDefense);
+
 function PokemonBySpeed(request, response) {
     let minSpeed = parseInt(request.params.speed);
 
@@ -243,7 +242,6 @@ function PokemonBySpeed(request, response) {
         response.status(404).send({ error: `Aucun Pokémon trouvé avec Speed >= ${minSpeed}.` });
     }
 }
-
 
 // Route pour obtenir les Pokémon par vitesse
 app.get('/pokemon/speed/:speed', PokemonBySpeed);
