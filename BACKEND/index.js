@@ -28,8 +28,14 @@ function formatId(id) {
     return id.toString().padStart(3, '0');
 }
 
+
 function findAllPokemon(request, response) {
-    
+    // Vérification dans la requête de la présence d'un paramètre GET apikey
+if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+    response.status(403).send('Erreur, apikey incorrecte!');
+    return;
+}
+
     //lis les données du fichier pokedex.JSON
     let data = fs.readFileSync(POKEDEX_SRC);
 
@@ -45,6 +51,11 @@ app.get('/', findAllPokemon);
 
 
 function randomPokemon(request, response) {
+// Vérification dans la requête de la présence d'un paramètre GET apikey
+    if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+        response.status(403).send('Erreur, apikey incorrecte!');
+        return;
+    }
     //Lis les données du fichier pokedex.JSON
     let data = fs.readFileSync(POKEDEX_SRC);
 
@@ -61,7 +72,11 @@ function randomPokemon(request, response) {
 app.get('/hasard', randomPokemon)
 
 function PokemonName(request, response){
-
+// Vérification dans la requête de la présence d'un paramètre GET apikey
+if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+    response.status(403).send('Erreur, apikey incorrecte!');
+    return;
+}
  // Récupère la langue et le nom du Pokémon depuis les paramètres de l'URL
  let language = request.params.language.toLowerCase(); 
  let pokemonName = request.params.name.toLowerCase(); 
@@ -93,6 +108,11 @@ function PokemonName(request, response){
 app.get('/pokemon/:language/:name', PokemonName);
 
 function getPokemonById(request, response) {
+// Vérification dans la requête de la présence d'un paramètre GET apikey
+if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+    response.status(403).send('Erreur, apikey incorrecte!');
+    return;
+}
     // Récupère l'ID du Pokémon depuis les paramètres de l'URL
     let pokemonId = parseInt(request.params.id);
 
@@ -119,6 +139,11 @@ function getPokemonById(request, response) {
 app.get('/pokemon/:id', getPokemonById);
 
 function PokemonByType(request, response) {
+// Vérification dans la requête de la présence d'un paramètre GET apikey
+if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+    response.status(403).send('Erreur, apikey incorrecte!');
+    return;
+}
     // Récupère la langue et le type du Pokémon depuis les paramètres de l'URL
     let language = request.params.language.toLowerCase();
     let pokemonType = request.params.type.toLowerCase();
@@ -155,8 +180,13 @@ app.get('/pokemon/type/:language/:type', PokemonByType);
 
 
 function PokemonByHP(request, response) {
+    // Vérification dans la requête de la présence d'un paramètre GET apikey
+    if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+        response.status(403).send('Erreur, apikey incorrecte!');
+        return;
+    }
     // Récupère les points de vie minimum depuis les paramètres de l'URL
-    let minHP = parseInt(request.params.hp);
+    let minHP = parseInt(request.params.base.HP);
 
     if (isNaN(minHP) || minHP < 0) {
         return response.status(400).send({ error: "Le paramètre HP doit être un nombre valide supérieur ou égal à 0." });
@@ -181,7 +211,12 @@ function PokemonByHP(request, response) {
 app.get('/pokemon/hp/:hp', PokemonByHP);
 
 function PokemonByAttack(request, response) {
-    let minAttack = parseInt(request.params.Attack);
+    // Vérification dans la requête de la présence d'un paramètre GET apikey
+    if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+        response.status(403).send('Erreur, apikey incorrecte!');
+        return;
+    }
+    let minAttack = parseInt(request.params.base.Attack);
 
     if (isNaN(minAttack) || minAttack < 0) {
         return response.status(400).send({ error: "Le paramètre Attack doit être un nombre valide supérieur ou égal à 0." });
@@ -199,10 +234,16 @@ function PokemonByAttack(request, response) {
     }
 }
 
+
 // Route pour obtenir les Pokémon par attaque
 app.get('/pokemon/attack/:attack', PokemonByAttack);
 
 function PokemonByDefense(request, response) {
+    // Vérification dans la requête de la présence d'un paramètre GET apikey
+    if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+        response.status(403).send('Erreur, apikey incorrecte!');
+        return;
+    }
     let minDefense = parseInt(request.params.defense);
 
     if (isNaN(minDefense) || minDefense < 0) {
@@ -223,8 +264,12 @@ function PokemonByDefense(request, response) {
 
 // Route pour obtenir les Pokémon par défense
 app.get('/pokemon/defense/:defense', PokemonByDefense);
-
 function PokemonBySpeed(request, response) {
+    // Vérification dans la requête de la présence d'un paramètre GET apikey
+    if (request.headers.apikey !== "k9Gz8Rq3XwLmP7T0NsY1Vb2Fd6CoQ4Hu") {
+        response.status(403).send('Erreur, apikey incorrecte!');
+        return;
+    }
     let minSpeed = parseInt(request.params.speed);
 
     if (isNaN(minSpeed) || minSpeed < 0) {
@@ -242,6 +287,7 @@ function PokemonBySpeed(request, response) {
         response.status(404).send({ error: `Aucun Pokémon trouvé avec Speed >= ${minSpeed}.` });
     }
 }
+
 
 // Route pour obtenir les Pokémon par vitesse
 app.get('/pokemon/speed/:speed', PokemonBySpeed);
