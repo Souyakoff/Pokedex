@@ -1,7 +1,3 @@
-Voici une version enrichie du fichier README avec une description des fonctionnalités de l'application :
-
----
-
 # Pokedex
 
 Un projet éducatif combinant frontend et backend pour créer une application de Pokédex.
