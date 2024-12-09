@@ -39,11 +39,3 @@ Cette application permet de visualiser des informations détaillées sur les Pok
 - **Navigation fluide** : Parcourez les listes avec un affichage optimisé.
 - **Interface utilisateur moderne** : Design simple et efficace pour une meilleure expérience.
 
-## Contribution
-
-1. Forkez le projet.
-2. Créez une branche :
-   ```bash
-   git checkout -b feature-nouvelle-fonction
-   ```
-3. Soumettez une Pull Request.
