@@ -5,7 +5,7 @@ name: "Déploiement auto suite à un push"
 on:  
   push: 
     branches: 
-      - main
+      - master
 
 # -----------------------------------------------------
 
