@@ -40,6 +40,12 @@ jobs:
             IdentityFile ~/.ssh/deploy_key\n\
             StrictHostKeyChecking no" > ~/.ssh/config
 
+
+      - name: Test de la connexion SSH
+        run: |
+          ssh -vvv deploy_host exit
+
+
       - name: Déploiement via SSH
         run: |
           # Synchronisation des fichiers
