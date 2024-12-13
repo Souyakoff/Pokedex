@@ -1,0 +1,56 @@
+# Nom du workflow
+name: "Déploiement auto suite à un push"
+
+# Déclencheur 
+on:  
+  push: 
+    branches: 
+      - main
+
+# -----------------------------------------------------
+
+jobs:
+  deploy:
+    name: "Déploiement sur le serveur"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v2
+
+      - name: Configuration SSH
+        env: 
+          SSH_KEY: ${{secrets.SSH_KEY}}
+          SSH_HOST: ${{secrets.SSH_HOST}}
+          SSH_PORT: ${{secrets.SSH_PORT}}
+          SSH_USER: ${{secrets.SSH_USER}}
+        run: |
+          # Création du dossier SSH
+          mkdir -p ~/.ssh
+          
+          # Écriture de la clé privée
+          echo "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          
+          # Configuration SSH
+          echo -e "Host deploy_host\n\
+            HostName $SSH_HOST\n\
+            User $SSH_USER\n\
+            Port $SSH_PORT\n\
+            IdentityFile ~/.ssh/deploy_key\n\
+            StrictHostKeyChecking no" > ~/.ssh/config
+
+      - name: Déploiement via SSH
+        run: |
+          # Synchronisation des fichiers
+          rsync -avz --delete \
+            --exclude '.git*' \
+            --exclude 'node_modules' \
+            ./ deploy_host:/var/www/pokedex/
+
+          # Connexion SSH et redémarrage des services
+          ssh deploy_host '
+            cd /var/www/pokedex && \
+            docker-compose down && \
+            docker-compose up -d --build
+          '
